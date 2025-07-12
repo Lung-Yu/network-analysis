@@ -13,20 +13,33 @@ then
     exit 1
 fi
 
-# --- Capture Network Traffic ---
-echo "Capturing network traffic for $CAPTURE_DURATION seconds..."
-# Run tshark with appropriate permissions. It might require sudo.
-# We select the default interface automatically.
+# --- Manual Capture Instruction ---
 INTERFACE=$(tshark -D | head -n 1 | cut -d' ' -f2)
-echo "Using interface: $INTERFACE"
-sudo tshark -i "$INTERFACE" -a "duration:$CAPTURE_DURATION" -w "$OUTPUT_FILE"
+TSHARK_COMMAND="sudo tshark -i $INTERFACE -a duration:$CAPTURE_DURATION -w $OUTPUT_FILE"
 
+echo "--------------------------------------------------------------------"
+echo "MANUAL ACTION REQUIRED"
+echo "--------------------------------------------------------------------"
+echo "Due to security restrictions, I cannot run 'sudo' directly."
+echo "Please open a NEW terminal and run the following command to capture network packets."
+echo "You will be prompted for your password."
+echo ""
+echo "    $TSHARK_COMMAND"
+echo ""
+echo "After the command completes (it will run for $CAPTURE_DURATION seconds), press [Enter] here to continue."
+echo "--------------------------------------------------------------------"
+
+# Wait for user to press Enter
+read -p ""
+
+# --- Check if file was created ---
 if [ ! -f "$OUTPUT_FILE" ]; then
-    echo "Error: Packet capture failed. No output file was created."
+    echo "Error: Output file '$OUTPUT_FILE' not found."
+    echo "Please make sure the capture command was successful before pressing Enter."
     exit 1
 fi
 
-echo "Capture complete. File saved as '$OUTPUT_FILE'."
+echo "Capture file found. Proceeding with upload..."
 
 # --- Upload for Analysis ---
 echo "Uploading '$OUTPUT_FILE' to the analysis service..."
@@ -41,7 +54,12 @@ echo "--- Analysis API Response ---"
 if [ "$HTTP_STATUS" -eq 200 ]; then
     echo "Status: OK ($HTTP_STATUS)"
     echo "Response JSON:"
-    echo "$HTTP_BODY" | json_pp # Requires json_pp, a common perl utility
+    # Check for json_pp, otherwise just print the body
+    if command -v json_pp &> /dev/null; then
+        echo "$HTTP_BODY" | json_pp
+    else
+        echo "$HTTP_BODY"
+    fi
 else
     echo "Status: Error ($HTTP_STATUS)"
     echo "Response Body:"

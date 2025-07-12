@@ -1,8 +1,40 @@
 .App {
   text-align: center;
-  padding: 20px;
-  max-width: 1200px;
+  /* padding: 20px; */ /* Removed padding from App to allow nav to span full width */
+  max-width: 100%; /* Allow App to take full width */
   margin: 0 auto;
+  min-height: 100vh; /* Ensure App takes full viewport height */
+  background-color: #282c34; /* Dark background for the whole app */
+  color: white;
+}
+
+.App-nav {
+  background-color: #20232a; /* Darker background for nav */
+  padding: 15px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.App-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  gap: 30px; /* Space between nav items */
+}
+
+.App-nav li a {
+  color: #61dafb; /* React blue */
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.App-nav li a:hover {
+  background-color: #3a3f47; /* Slightly lighter on hover */
 }
 
 .App-header {
@@ -18,7 +50,7 @@
   font-size: 2.5rem;
 }
 
-.upload-section {
+.upload-page .upload-section {
   margin: 20px auto;
   padding: 30px;
   max-width: 600px;
@@ -26,14 +58,15 @@
   border-radius: 10px;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  color: #333; /* Ensure text is readable on white background */
 }
 
-.upload-section input[type="file"] {
+.upload-page .upload-section input[type="file"] {
   margin-right: 15px;
   font-size: 1rem;
 }
 
-.upload-section button {
+.upload-page .upload-section button {
   padding: 12px 25px;
   font-size: 1.1rem;
   color: white;
@@ -44,40 +77,43 @@
   transition: background-color 0.3s ease;
 }
 
-.upload-section button:hover:not(:disabled) {
+.upload-page .upload-section button:hover:not(:disabled) {
   background-color: #0056b3;
 }
 
-.upload-section button:disabled {
+.upload-page .upload-section button:disabled {
   background-color: #a0c3e6;
   cursor: not-allowed;
 }
 
-.message {
+.upload-page .message {
   margin-top: 20px;
   font-size: 1.1rem;
-  color: #333;
+  color: white; /* Changed to white for dark background */
   padding: 10px;
   border-radius: 5px;
 }
 
-.message.loading {
-  color: #0056b3;
+.upload-page .message.loading {
+  color: #61dafb; /* React blue for loading */
 }
 
-.results-section {
+.upload-page .results-section {
   margin-top: 40px;
   text-align: left;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.graph-section, .alerts-section {
+.upload-page .graph-section, .upload-page .alerts-section {
   margin-bottom: 30px;
 }
 
-.graph-section h2, .alerts-section h2 {
+.upload-page .graph-section h2, .upload-page .alerts-section h2 {
   font-size: 1.8rem;
-  color: #333;
-  border-bottom: 2px solid #eee;
+  color: #61dafb; /* React blue */
+  border-bottom: 2px solid #444; /* Darker border */
   padding-bottom: 10px;
   margin-bottom: 20px;
 }

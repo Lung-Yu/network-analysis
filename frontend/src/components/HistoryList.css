@@ -1,0 +1,123 @@
+.history-container {
+    padding: 20px;
+    max-width: 1200px; /* Increased max-width for better table display */
+    margin: 20px auto;
+    background-color: #282c34;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+.history-container h2 {
+    color: #61dafb;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.history-table th,
+.history-table td {
+    padding: 12px 15px;
+    border: 1px solid #3a3f47;
+    text-align: left;
+}
+
+.history-table th {
+    background-color: #3a3f47;
+    color: #61dafb;
+    cursor: pointer;
+    position: relative;
+    padding-right: 30px; /* Space for sort indicator */
+}
+
+.history-table th:hover {
+    background-color: #4a4f57;
+}
+
+.history-table th .sort-indicator {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.history-table tbody tr {
+    background-color: #2f333a;
+    transition: background-color 0.3s ease;
+}
+
+.history-table tbody tr:nth-child(even) {
+    background-color: #282c34; /* Slightly different background for even rows */
+}
+
+.history-table tbody tr:hover {
+    background-color: #3a3f47;
+}
+
+.status-success {
+    color: #4CAF50; /* Green */
+    font-weight: bold;
+}
+
+.status-failed {
+    color: #f44336; /* Red */
+    font-weight: bold;
+}
+
+.status-pending {
+    color: #ffeb3b; /* Yellow */
+    font-weight: bold;
+}
+
+.error-message {
+    color: #f44336;
+    font-weight: bold;
+}
+
+.view-details-link {
+    color: #61dafb; /* React blue */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.view-details-link:hover {
+    text-decoration: underline;
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.pagination-controls button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.pagination-controls button:disabled {
+    background-color: #a0c3e6;
+    cursor: not-allowed;
+}
+
+.pagination-controls button.active {
+    background-color: #61dafb;
+    color: #282c34;
+    font-weight: bold;
+}

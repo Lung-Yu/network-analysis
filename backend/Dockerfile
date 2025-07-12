@@ -33,6 +33,12 @@ RUN useradd -m appuser && \
 RUN mkdir -p /var/log/suricata && chown -R appuser:appuser /var/log/suricata
 RUN chown -R appuser:appuser /etc/suricata
 
+# Grant appuser ownership of the /app directory
+RUN chown -R appuser:appuser /app
+
+# Create and grant permissions for the database directory
+RUN mkdir -p /app/data/db && chown -R appuser:appuser /app/data/db
+
 # Switch to the non-root user
 USER appuser
 

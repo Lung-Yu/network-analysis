@@ -1,78 +1,32 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
-import NetworkGraph from './components/NetworkGraph';
-import AlertsTable from './components/AlertsTable';
+import UploadPage from './components/UploadPage';
+import HistoryList from './components/HistoryList';
+import AnalysisDetail from './components/AnalysisDetail';
 
 function App() {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [message, setMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [analysisResult, setAnalysisResult] = useState(null);
-
-  const onFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
-    setAnalysisResult(null); // Reset previous results
-    setMessage('');
-  };
-
-  const onFileUpload = () => {
-    if (!selectedFile) {
-      setMessage('Please select a file first.');
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('file', selectedFile);
-
-    setMessage('Uploading and analyzing... This may take a moment.');
-    setIsLoading(true);
-
-    axios.post('/api/upload', formData)
-      .then((response) => {
-        setMessage(`Analysis complete for ${response.data.filename}.`);
-        setAnalysisResult(response.data.data);
-        console.log('Analysis data:', response.data.data);
-      })
-      .catch((error) => {
-        const errorMsg = error.response?.data?.detail || error.message;
-        setMessage(`Error: ${errorMsg}`);
-        console.error('Analysis error:', error);
-        setAnalysisResult(null);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Network Packet Analysis</h1>
-        <p>Upload a .pcap file to analyze network traffic and detect potential threats.</p>
-      </header>
-      
-      <div className="upload-section">
-        <input type="file" onChange={onFileChange} disabled={isLoading} />
-        <button onClick={onFileUpload} disabled={isLoading}>
-          {isLoading ? 'Analyzing...' : 'Analyze Packet'}
-        </button>
+    <Router>
+      <div className="App">
+        <nav className="App-nav">
+          <ul>
+            <li>
+              <Link to="/">Upload</Link>
+            </li>
+            <li>
+              <Link to="/history">History</Link>
+            </li>
+          </ul>
+        </nav>
+
+        <Routes>
+          <Route path="/" element={<UploadPage />} />
+          <Route path="/history" element={<HistoryList />} />
+          <Route path="/history/:recordId" element={<AnalysisDetail />} />
+        </Routes>
       </div>
-
-      {message && <p className={`message ${isLoading ? 'loading' : ''}`}>{message}</p>}
-
-      {analysisResult && (
-        <div className="results-section">
-          <div className="graph-section">
-            <h2>Network Graph</h2>
-            <NetworkGraph data={{ nodes: analysisResult.nodes, edges: analysisResult.edges }} />
-          </div>
-          <div className="alerts-section">
-            <AlertsTable alerts={analysisResult.alerts} />
-          </div>
-        </div>
-      )}
-    </div>
+    </Router>
   );
 }
 

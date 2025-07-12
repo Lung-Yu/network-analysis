@@ -1,0 +1,20 @@
+# Python
+*.pyc
+__pycache__/
+
+# Node
+node_modules/
+
+# Environment variables
+.env
+
+# Database
+data/db/
+
+# Uploads and Logs
+uploads/pcap_files/*
+uploads/suricata_logs/*
+
+# Specific files to ignore
+capture.pcap
+.gemini/

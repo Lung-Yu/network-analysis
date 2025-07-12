@@ -1,0 +1,53 @@
+.detail-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: #282c34;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+.detail-container h2 {
+    color: #61dafb;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.detail-container h3 {
+    color: #61dafb;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #444;
+    padding-bottom: 5px;
+}
+
+.detail-container p {
+    margin: 5px 0;
+}
+
+.analysis-data-section {
+    margin-top: 20px;
+}
+
+/* Reusing status styles from HistoryList.css */
+.status-success {
+    color: #4CAF50; /* Green */
+    font-weight: bold;
+}
+
+.status-failed {
+    color: #f44336; /* Red */
+    font-weight: bold;
+}
+
+.status-pending {
+    color: #ffeb3b; /* Yellow */
+    font-weight: bold;
+}
+
+.error-message {
+    color: #f44336;
+    font-weight: bold;
+    margin-top: 10px;
+}

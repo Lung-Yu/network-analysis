@@ -7,7 +7,26 @@ const NetworkGraph = ({ data }) => {
 
   useEffect(() => {
     if (containerRef.current && data && (data.nodes.length > 0 || data.edges.length > 0)) {
-      const network = new Network(containerRef.current, data, {
+      
+      // --- Enhance nodes with detailed tooltips ---
+      const enhancedNodes = data.nodes.map(node => {
+        let title = `<b>IP: ${node.label}</b>`;
+        if (node.group === 'external') {
+          title += `<br>--------------------`;
+          title += `<br>Country: ${node.country || 'N/A'}`;
+          title += `<br>ISP: ${node.isp || 'N/A'}`;
+          title += `<br>Usage Type: ${node.usageType || 'N/A'}`;
+          title += `<br>Abuse Score: ${node.abuseScore !== undefined ? node.abuseScore : 'N/A'}`;
+        }
+        return { ...node, title };
+      });
+
+      const enhancedData = {
+        nodes: enhancedNodes,
+        edges: data.edges
+      };
+
+      const network = new Network(containerRef.current, enhancedData, {
         nodes: {
           shape: 'dot',
           size: 16,
@@ -24,7 +43,7 @@ const NetworkGraph = ({ data }) => {
             highlight: '#007bff',
           },
           arrows: {
-            to: { enabled: false } // Connections are often bidirectional
+            to: { enabled: false }
           }
         },
         physics: {

@@ -3,3 +3,4 @@ uvicorn[standard]
 python-multipart
 SQLAlchemy
 pydantic-sqlalchemy
+\nrequests

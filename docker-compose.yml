@@ -8,6 +8,8 @@ services:
     volumes:
       - ./uploads:/app/uploads
       - ./data/db:/app/data/db
+    environment:
+      - ABUSEIPDB_API_KEY=
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
   frontend:
